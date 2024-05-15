@@ -22,8 +22,6 @@
    - 本质上就是一个根据有向无环图，数据由Key值进行索引。
 5. refs/heads：用来存储各个分支最新的commit，也即链表的末端。
 
-
-
 ## 工作分区
 
 1、工作目录：也就是我们看到的目录文件夹
@@ -43,9 +41,32 @@
 **涉及的数据结构和算法**
 
 - 链表：每一个分支的commit就是一个链表
-- 树：tree中记录的文件夹目录结构
+
+  ![1715760287695](E:\master2\coding_notes\gitlet\README.assets\1715760287695.png)
+
+- 树：tree中记录的文件夹目录结构，包含了文件名、文件类型、文件哈希这些信息，也包含子目录结构，可以递归的组成树状结构，因此也称为tree。
+
+  ![1715759885449](.\README.assets\1715759885449.png)
+
 - 哈希：用来存储文件内容的blobs，就是用哈希来创建索引，用sha1算法求得40位的哈希值，取前两位做目录。
+
+  ```shell
+  $ find .git/objects -type f
+  .git/objects/01/55eb4229851634a0f03eb265b69f5a2d56f341 # tree 2
+  .git/objects/1a/410efbd13591db07496601ebc7a059dd55cfe9 # commit 3
+  .git/objects/1f/7a7a472abf3dd9643fd615f6da379c4acb3e3a # test.txt v2
+  .git/objects/3c/4e9cd789d88d8d89c1073707c3585e41b0e614 # tree 3
+  .git/objects/83/baae61804e65cc73a7201a7252750c76066a30 # test.txt v1
+  .git/objects/ca/c0cab538b970a37ea1e769cbbde608743bc96d # commit 2
+  .git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4 # 'test content'
+  .git/objects/d8/329fc1cc938780ffdd9f94e0d364e0ea74f579 # tree 1
+  .git/objects/fa/49b077972391ad58037050f2a75f74e3671e92 # new.txt
+  .git/objects/fd/f4fc3344e67ab068f836878b6c4951e3b15f3d # commit 1
+  ```
+
 - BFS/DFS：checkout使用
+
+- 参考：https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
 
 ## 核心操作
 
